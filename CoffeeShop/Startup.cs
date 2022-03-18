@@ -44,8 +44,9 @@ namespace CoffeeShop
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +70,7 @@ namespace CoffeeShop
             app.UseSession();
 
             app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -77,7 +79,7 @@ namespace CoffeeShop
                 );
 
                 routes.MapRoute(
-                    name: "Error", 
+                    name: "Error",
                     template: "Error",
                     defaults: new { controller = "Error", action = "Error" }
                 );
